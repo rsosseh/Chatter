@@ -1,0 +1,20 @@
+{
+  "name": "chatroom",
+  "version": "1.0.0",
+  "description": {
+    "express": "^4.11.0",
+    "any-db": "0.3.x",
+    "sqlite3": "3.1.x"
+  },
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mustache": "^2.3.0",
+    "socket.io": "^1.4.5"
+  }
+}

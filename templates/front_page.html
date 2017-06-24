@@ -1,0 +1,92 @@
+<html>
+	<head>
+		<title>Chatter - Simple Chatroom</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		
+		<link href="https://fonts.googleapis.com/css?family=Palanquin" rel="stylesheet">
+		<style>
+			*{
+				margin: 0;
+				background-color: #00b7d4;
+				font-family: 'Palanquin', sans-serif;
+			}
+			#front_header{
+				padding-top: 10%;
+				line-height: 100%;
+				color: #fff;
+				font-size: 5em;
+			}
+			#tagline{
+				color: white;
+				padding-bottom: 5%;
+			}
+			#bttn{
+				padding: 2%;
+				background: #00b7d4;
+				border: 4px solid #fff;
+				color: #fff;
+				font-size: 1.2em;
+				-webkit-transition: background-color .3s ease-out;
+				-moz-transition: background-color .3s ease-out;
+  				-o-transition: background-color .3s ease-out;
+  				transition: background-color .3s ease-out;
+			}
+			#bttn:hover{
+				color:#00b7d4;
+				background: white;
+				cursor: pointer;
+			}
+			#available{
+				padding-top: 5%;
+			}
+			#available h4{
+				color:#000;
+				font-size: 1.1em;
+			}
+			#open_rooms{
+				list-style-type: none;
+				text-decoration: none;
+				text-align: center;
+				margin: 0;
+				padding: 0;
+			}
+			#open_rooms a{
+				text-decoration: none;
+				cursor: pointer;
+				color: #fff;
+				-webkit-transition: color .4s ease-out;
+				-moz-transition: color .4s ease-out;
+  				-o-transition: color .4s ease-out;
+  				transition: color .4s ease-out;
+			}
+			#open_rooms a:hover{
+				color:#000;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<center><h2 id='front_header'>Chatter</h2></center>
+		<center><p id='tagline'>A Simple Chatroom</p></center>
+		<center><button id='bttn' onclick='new_chat();'>start new room</button></center>
+		<div id='available'></div>
+
+		<script type="text/javascript">
+			rooms = {{{rooms}}}
+			console.log(rooms);
+			if (rooms[0] != undefined) {
+				$('#available').append('<center><h4>Already open rooms:</h4></center>');
+				$('#available').append('<ul id ="open_rooms">');
+				$('#available').append('</ul>');	
+				for(var i = 0; i < rooms.length; i++){
+					$('#open_rooms').append('<li><a href="/'+rooms[i].room+'">'+rooms[i].room+'</a></li>');
+				}
+			};
+
+			function new_chat(){
+				window.location.href = '/'+'{{room_name}}';
+			};
+		</script>
+	</body>
+</html>
