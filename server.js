@@ -100,7 +100,7 @@ app.get('/:roomName', function(req, res){
 	
 });
 
-server.listen(8080);
+server.listen(5000);
 
 function generateRoomIdentifier() {
     var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
