@@ -1,6 +1,9 @@
 {
   "name": "chatroom",
   "version": "1.0.0",
+  "engines": {
+    "node": "4.3.1"
+  },
   "description": {
     "express": "^4.11.0",
     "any-db": "0.3.x",
