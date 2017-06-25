@@ -13,7 +13,7 @@ app.set('view engine', 'html');
 //Database Requires
 var pg = require('pg');
 pg.defaults.ssl = true;
-var conn = new pg.Pool({connectionString:process.env.DATABASE_URL});
+var pool = new pg.Pool();
 
 
 
@@ -22,8 +22,12 @@ app.use(express.static('imgs'))
 
 //creating database
 var create = 'CREATE TABLE messages (id INTEGER ,room TEXT,nickname TEXT,body TEXT, time INTERGER);';
-conn.query(create, function(err,res){
-	console.log('made-table');
+
+pool.connect((err,client,done) => {
+	client.query(create, (err,res) => {
+		done()
+		console.log('made table');
+	})
 })
 
 
@@ -85,7 +89,9 @@ app.get('/', function(req, res){
 
 	conn.query('SELECT DISTINCT room FROM messages',function(err,result){
 		var room_name = generateRoomIdentifier();
+		// console.log(result);
 		res.render('front_page.html', {rooms: JSON.stringify(result.rows), room_name: room_name})
+		// conn.end();
 	});
 
 });
