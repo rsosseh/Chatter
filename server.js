@@ -13,8 +13,10 @@ app.set('view engine', 'html');
 //Database Requires
 var pg = require('pg');
 pg.defaults.ssl = true;
-var pool = new pg.Pool();
-
+var db_url = process.env.DATABASE_URL;
+console.log('db: '+db_url)
+var pool = new pg.Pool({connectionString:process.env.DATABASE_URL});
+console.log(pool);
 
 
 //Static Requires
@@ -23,13 +25,11 @@ app.use(express.static('imgs'))
 //creating database
 var create = 'CREATE TABLE messages (id INTEGER ,room TEXT,nickname TEXT,body TEXT, time INTERGER);';
 
-pool.connect((err,client,done) => {
-	client.query(create, (err,res) => {
-		done()
-		console.log('made table');
+pool.connect(process.env.DATABASE_URL, function(err, client){
+	client.query(create, function(){
+		console.log('table made')
 	})
 })
-
 
 //creating realtime sockets
 var io = require('socket.io').listen(server);
