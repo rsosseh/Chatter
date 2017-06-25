@@ -14,9 +14,9 @@ app.set('view engine', 'html');
 var Pool = require('pg-pool');
 // pg.defaults.ssl = true;
 var db_url = process.env.DATABASE_URL;
-console.log('db: '+db_url)
-var pool = new Pool({connectionString:process.env.DATABASE_URL});
-console.log(pool);
+// console.log('db: '+db_url)
+var conn = new Pool({connectionString:process.env.DATABASE_URL});
+// console.log(pool);
 
 
 //Static Requires
@@ -25,10 +25,8 @@ app.use(express.static('imgs'))
 //creating database
 var create = 'CREATE TABLE messages (id INTEGER ,room TEXT,nickname TEXT,body TEXT, time INTERGER);';
 
-pool.connect(process.env.DATABASE_URL, function(err, client){
-	client.query(create, function(){
-		console.log('table made')
-	})
+conn.query(create, function(err,res){
+	console.log('made table')
 })
 
 //creating realtime sockets
