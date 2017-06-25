@@ -26,6 +26,7 @@ app.use(express.static('imgs'))
 var create = 'CREATE TABLE messages (id INTEGER ,room TEXT,nickname TEXT,body TEXT, time INTERGER);';
 
 conn.query(create, function(err,res){
+	console.log(res);
 	console.log('made table')
 })
 
