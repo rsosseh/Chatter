@@ -15,8 +15,24 @@ var Pool = require('pg-pool');
 // pg.defaults.ssl = true;
 var db_url = process.env.DATABASE_URL;
 // console.log('db: '+db_url)
-var conn = new Pool({connectionString:process.env.DATABASE_URL});
+var pool = new Pool({connectionString:process.env.DATABASE_URL});
 // console.log(pool);
+
+pool.on('error', function (err, client) {
+  console.error('idle client error', err.message, err.stack);
+});
+
+//export the query method for passing queries to the pool
+module.exports.query = function (text, values, callback) {
+  console.log('query:', text, values);
+  return pool.query(text, values, callback);
+};
+
+// the pool also supports checking out a client for
+// multiple operations, such as a transaction
+module.exports.connect = function (callback) {
+  return pool.connect(callback);
+};
 
 
 //Static Requires
@@ -25,7 +41,7 @@ app.use(express.static('imgs'))
 //creating database
 var create = 'CREATE TABLE messages (id INTEGER ,room TEXT,nickname TEXT,body TEXT, time INTERGER);';
 
-conn.query(create, function(err,res){
+pool.query(create, function(err,res){
 	console.log(res);
 	console.log('made table')
 })
