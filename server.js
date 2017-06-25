@@ -11,11 +11,11 @@ app.set('views',__dirname + '/templates');
 app.set('view engine', 'html');
 
 //Database Requires
-var pg = require('pg');
-pg.defaults.ssl = true;
+var Pool = require('pg-pool');
+// pg.defaults.ssl = true;
 var db_url = process.env.DATABASE_URL;
 console.log('db: '+db_url)
-var pool = new pg.Pool({connectionString:process.env.DATABASE_URL});
+var pool = new Pool({connectionString:process.env.DATABASE_URL});
 console.log(pool);
 
 
