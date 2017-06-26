@@ -22,8 +22,7 @@ app.use(express.static('imgs'))
 var create = 'CREATE TABLE messages(id INT ,room VARCHAR,nickname VARCHAR,body VARCHAR, time INT);';
 
 pool.query(create, function(err,res){
-	console.log(res);
-	console.log('made table')
+	console.log('made table');
 })
 
 //creating realtime sockets
@@ -57,7 +56,7 @@ io.sockets.on('connection', function(socket){
 	});
 
 	socket.on('message', function(message, roomName, nickname){
-		pool.query('INSERT into messages VALUES ($1, $2, $3, $4, $5)',[0, roomName, nickname, message, 0]);
+		pool.query('INSERT INTO messages VALUES ($1, $2, $3, $4, $5)',[0, roomName, nickname, message, 0]);
 		io.sockets.in(roomName).emit('message', nickname, message, 0);
 
 	});
