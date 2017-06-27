@@ -19,7 +19,7 @@ var pool = new pg.Pool({connectionString:process.env.DATABASE_URL})
 app.use(express.static('imgs'))
 
 //creating database
-var create = 'CREATE TABLE messages(id INT ,room TEXT,nickname TEXT,body TEXT, time INT);';
+var create = 'CREATE TABLE IF NOT EXISTS messages(id INT ,room TEXT,nickname TEXT,body TEXT, time INT);';
 
 pool.query(create, function(err,res){
 	console.log('made table');
