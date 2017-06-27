@@ -70,6 +70,7 @@ io.sockets.on('connection', function(socket){
 	});
 
 	socket.on('message', function(message, roomName, nickname){
+		console.log('fucking LOOOADDDD');
 		pool.query('INSERT INTO messages VALUES ($1, $2, $3, $4, $5)',[0, roomName, nickname, message, 0]);
 		io.sockets.in(roomName).emit('message', nickname, message, 0);
 
